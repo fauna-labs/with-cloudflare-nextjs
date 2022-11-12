@@ -56,5 +56,5 @@ export const getProducts = async () => {
   });
 
   const responseJson = await response.json();
-  return responseJson.data;
+  return responseJson;
 }
