@@ -7,21 +7,30 @@ export const config = {
 
 
 export async function getServerSideProps() {
-  const products = await getProducts();
-  return {
-    props: {
-      products: products,
-    },
+  try { 
+    const products = await getProducts();
+    return {
+      props: {
+        products: products,
+      },
+    }
+  } catch (error) { 
+    return { 
+      props: {
+        products: error,
+      }
+    }
   }
 }
 
 
 export default function Home({ products }) {
+  console.log(products);
   return (
     <div className={styles.container}>
       <h1>Products</h1>
       <ul>
-      {
+      {/* {
         products.map((product) => (
           <li key={product._id}>
             <h2>{product.title}</h2>
@@ -29,7 +38,7 @@ export default function Home({ products }) {
             <p>{product.price}</p>
           </li>
         ))
-      }
+      } */}
       </ul>
     </div>
   )
