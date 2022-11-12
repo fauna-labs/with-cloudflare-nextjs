@@ -49,7 +49,7 @@ export const getProducts = async () => {
   const response = await fetch(`https://graphql.fauna.com/graphql`, {
     headers: {
       'Content-Type': "application/json",
-      'Authorization': `Bearer fnAE1Mw_HoACUF0b3pyCj9Sr85hnPlkZqu5r_a6b`
+      'Authorization': `Bearer ${process.env.FAUNA_SECRET}`
     },
     method: 'POST',
     body: query,
