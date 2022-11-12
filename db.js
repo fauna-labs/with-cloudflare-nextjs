@@ -1,27 +1,58 @@
-import fauna from 'faunadb';
-
-const q = fauna.query;
-const client = new fauna.Client({ secret: process.env.FAUNA_SECRET });
-
 export const createProduct = async (title, price, description) => {
-  const product = {
-    data: {
-      title,
-      price,
-      description,
+  
+  const query = JSON.stringify({
+    query: `
+      mutation CreatePost {
+        createProduct(data: {
+          title: "${title}"
+          description: "${description}"
+          price: ${price}
+        }) {
+          _id
+        }
+      }
+    `
+  });
+
+  const response = await fetch(`https://graphql.fauna.com/graphql`, {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${process.env.FAUNA_SECRET}`
     },
-  };
-  return client.query(q.Create(q.Collection('Products'), product));
+    method: 'POST',
+    body: query,
+  });
+
+  const responseJson = await response.json();
+  return responseJson.data;
 };
 
 
 export const getProducts = async () => {
-  const response = await client.query(
-    q.Map(
-      q.Paginate(q.Documents(q.Collection('Products'))),
-      q.Lambda(x => q.Get(x))
-    )
-  );
-  const products = response.data.map((product) => ({ ...product.data, _id: product.ref.id }));
-  return products;
+  const query = JSON.stringify({
+    query: `
+      query ListProducts {
+        listProducts {
+          data {
+            _id
+            title
+            description
+            price
+          }
+        }
+      }
+    `
+  });
+
+  const response = await fetch(`https://graphql.fauna.com/graphql`, {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${process.env.FAUNA_SECRET}`
+    },
+    method: 'POST',
+    body: query,
+  });
+
+  const responseJson = await response.json();
+  return responseJson.data.listProducts.data;
 }
