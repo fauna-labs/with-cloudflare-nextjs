@@ -24,7 +24,7 @@ export const createProduct = async (title, price, description) => {
   });
 
   const responseJson = await response.json();
-  return responseJson.data;
+  return responseJson.data.createProduct;
 };
 
 

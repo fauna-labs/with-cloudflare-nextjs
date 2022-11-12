@@ -12,12 +12,7 @@ export default async function (req) {
     return new Response(
       JSON.stringify({ 
         message: 'Product created successfully',
-        product: {
-          id: product.ref.id,
-          title,
-          price,
-          description,
-        },
+        product,
       }),
       {
         status: 200,

@@ -7,10 +7,10 @@ export const config = {
 
 
 export async function getServerSideProps() {
-  // const products = await getProducts();
+  const products = await getProducts();
   return {
     props: {
-      products: [],
+      products: products,
     },
   }
 }
