@@ -16,7 +16,7 @@ export const createProduct = async (title, price, description) => {
 
   const response = await fetch(`https://graphql.fauna.com/graphql`, {
     headers: {
-      'content-type': 'application/json',
+      'Content-Type': "application/json",
       'Authorization': `Bearer ${process.env.FAUNA_SECRET}`
     },
     method: 'POST',
@@ -46,7 +46,7 @@ export const getProducts = async () => {
 
   const response = await fetch(`https://graphql.fauna.com/graphql`, {
     headers: {
-      'content-type': 'application/json',
+      'Content-Type': "application/json",
       'Authorization': `Bearer ${process.env.FAUNA_SECRET}`
     },
     method: 'POST',

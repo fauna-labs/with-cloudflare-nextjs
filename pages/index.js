@@ -17,7 +17,7 @@ export async function getServerSideProps() {
   } catch (error) { 
     return { 
       props: {
-        products: error,
+        products: error.toString(),
       }
     }
   }
