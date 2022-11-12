@@ -20,7 +20,7 @@ export default function Home({ products }) {
   return (
     <div className={styles.container}>
       <h1>Products</h1>
-      {/* <ul>
+      <ul>
       {
         products.map((product) => (
           <li key={product._id}>
@@ -30,7 +30,7 @@ export default function Home({ products }) {
           </li>
         ))
       }
-      </ul> */}
+      </ul>
     </div>
   )
 }
