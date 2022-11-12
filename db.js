@@ -1,5 +1,3 @@
-'use strict';
-
 export const createProduct = async (title, price, description) => {
   
   const query = JSON.stringify({
@@ -19,7 +17,7 @@ export const createProduct = async (title, price, description) => {
   const response = await fetch(`https://graphql.fauna.com/graphql`, {
     headers: {
       'Content-Type': "application/json",
-      'Authorization': `Bearer ${process.env.FAUNA_SECRET}`
+      'Authorization': `Bearer fnAE1Mw_HoACUF0b3pyCj9Sr85hnPlkZqu5r_a6b`
     },
     method: 'POST',
     body: query,
@@ -49,7 +47,7 @@ export const getProducts = async () => {
   const response = await fetch(`https://graphql.fauna.com/graphql`, {
     headers: {
       'Content-Type': "application/json",
-      'Authorization': `Bearer ${process.env.FAUNA_SECRET}`
+      'Authorization': `Bearer fnAE1Mw_HoACUF0b3pyCj9Sr85hnPlkZqu5r_a6b`
     },
     method: 'POST',
     body: query,
