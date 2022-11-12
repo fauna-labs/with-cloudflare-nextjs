@@ -15,6 +15,7 @@ export async function getServerSideProps() {
   }
 }
 
+
 export default function Home({ products }) {
   return (
     <div className={styles.container}>
