@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "faunadb": "^4.7.1",
     "next": "12.x",
     "react": "18.2.0",
     "react-dom": "18.2.0"
