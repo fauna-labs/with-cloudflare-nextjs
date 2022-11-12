@@ -1,3 +1,5 @@
+'use strict';
+
 export const createProduct = async (title, price, description) => {
   
   const query = JSON.stringify({
@@ -54,5 +56,5 @@ export const getProducts = async () => {
   });
 
   const responseJson = await response.json();
-  return responseJson.data.listProducts.data;
+  return responseJson.data;
 }

@@ -25,7 +25,7 @@ export async function getServerSideProps() {
 
 
 export default function Home({ products }) {
-  console.log(products);
+  console.log('===>>>>', products);
   return (
     <div className={styles.container}>
       <h1>Products</h1>
