@@ -8,10 +8,10 @@ export const config = {
 
 export async function getServerSideProps() {
   const fauna_secret = process.env.FAUNA_SECRET;
-  // const products = await getProducts(fauna_secret);
+  const products = await getProducts();
   return {
     props: {
-      products: [],
+      products,
       fauna_secret
     },
   }
@@ -19,7 +19,6 @@ export async function getServerSideProps() {
 
 
 export default function Home({ products, fauna_secret }) {
-  console.log('=FFA==>>>', fauna_secret);
   return (
     <div className={styles.container}>
       <h1>Products</h1>
