@@ -7,7 +7,6 @@ export const config = {
 
 
 export async function getServerSideProps() {
-  console.log('getServerSideProps', process.env.FAUNA_SECRET);
   const products = await getProducts();
   return {
     props: {

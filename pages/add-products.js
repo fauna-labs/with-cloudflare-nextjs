@@ -27,6 +27,7 @@ export default function AddProducts() {
       price: '',
       description: '',
     });
+    alert('Product created successfully');
   }
 
   return (
