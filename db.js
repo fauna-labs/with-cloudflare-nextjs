@@ -15,8 +15,8 @@ export const createProduct = async (title, price, description, fauna_secret) => 
 };
 
 
-export const getProducts = async () => {
-  const client = new fauna.Client({ secret: 'fnAE1PwtvPACUXZPrvFD4shtOSC29hPZB2ev9Jj8' });
+export const getProducts = async (fauna_secret) => {
+  const client = new fauna.Client({ secret: fauna_secret });
   const response = await client.query(
     q.Map(
       q.Paginate(q.Documents(q.Collection('Products'))),

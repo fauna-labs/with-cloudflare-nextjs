@@ -7,16 +7,19 @@ export const config = {
 
 
 export async function getServerSideProps() {
-  const products = await getProducts();
+  const fauna_secret = process.env.FAUNA_SECRET;
+  const products = await getProducts(fauna_secret);
   return {
     props: {
       products,
+      fauna_secret
     },
   }
 }
 
 
-export default function Home({ products }) {
+export default function Home({ products, fauna_secret }) {
+  console.log('===>>>', fauna_secret);
   return (
     <div className={styles.container}>
       <h1>Products</h1>
