@@ -7,14 +7,12 @@ export default async function (req) {
   if(req.method === 'POST') {
     const body = await readRequestBodyStream(req.body);
     const { title, price, description } = JSON.parse(body);
-    const fauna_secret = process.env.FAUNA_SECRET;
-    // const product = await createProduct(title, price, description, fauna_secret);
+    const product = await createProduct(title, price, description);
     // Save the product to the database
     return new Response(
       JSON.stringify({ 
         message: 'Product created successfully',
-        fauna_secret
-        // product,
+        product,
       }),
       {
         status: 200,
