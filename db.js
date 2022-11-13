@@ -1,9 +1,9 @@
 import fauna from 'faunadb';
 
 const q = fauna.query;
-const client = new fauna.Client({ secret: process.env.FAUNA_SECRET });
 
-export const createProduct = async (title, price, description) => {
+export const createProduct = async (title, price, description, fauna_secret) => {
+  const client = new fauna.Client({ secret: fauna_secret });
   const product = {
     data: {
       title,
@@ -16,6 +16,7 @@ export const createProduct = async (title, price, description) => {
 
 
 export const getProducts = async () => {
+  const client = new fauna.Client({ secret: 'fnAE1PwtvPACUXZPrvFD4shtOSC29hPZB2ev9Jj8' });
   const response = await client.query(
     q.Map(
       q.Paginate(q.Documents(q.Collection('Products'))),
