@@ -1,58 +1,27 @@
+import fauna from 'faunadb';
+
+const q = fauna.query;
+const client = new fauna.Client({ secret: 'fnAE1PwtvPACUXZPrvFD4shtOSC29hPZB2ev9Jj8' });
+
 export const createProduct = async (title, price, description) => {
-  
-  const query = JSON.stringify({
-    query: `
-      mutation CreatePost {
-        createProduct(data: {
-          title: "${title}"
-          description: "${description}"
-          price: ${price}
-        }) {
-          _id
-        }
-      }
-    `
-  });
-
-  const response = await fetch(`https://graphql.fauna.com/graphql`, {
-    headers: {
-      'Content-Type': "application/json",
-      'Authorization': `Bearer fnAE1Mw_HoACUF0b3pyCj9Sr85hnPlkZqu5r_a6b`
+  const product = {
+    data: {
+      title,
+      price,
+      description,
     },
-    method: 'POST',
-    body: query,
-  });
-
-  const responseJson = await response.json();
-  return responseJson.data.createProduct;
+  };
+  return client.query(q.Create(q.Collection('Products'), product));
 };
 
 
 export const getProducts = async () => {
-  const query = JSON.stringify({
-    query: `
-      query ListProducts {
-        listProducts {
-          data {
-            _id
-            title
-            description
-            price
-          }
-        }
-      }
-    `
-  });
-
-  const response = await fetch(`https://graphql.fauna.com/graphql`, {
-    headers: {
-      'Content-Type': "application/json",
-      'Authorization': `Bearer fnAE1Mw_HoACUF0b3pyCj9Sr85hnPlkZqu5r_a6b`
-    },
-    method: 'POST',
-    body: query,
-  });
-
-  const responseJson = await response.json();
-  return responseJson;
+  const response = await client.query(
+    q.Map(
+      q.Paginate(q.Documents(q.Collection('Products'))),
+      q.Lambda(x => q.Get(x))
+    )
+  );
+  const products = response.data.map((product) => ({ ...product.data, _id: product.ref.id }));
+  return products;
 }
