@@ -5,6 +5,7 @@ export const config = {
 
 export default async function (req) {
   if(req.method === 'POST') {
+    console.log('Products API', process.env.FAUNA_SECRET);
     const body = await readRequestBodyStream(req.body);
     const { title, price, description } = JSON.parse(body);
     const product = await createProduct(title, price, description);
