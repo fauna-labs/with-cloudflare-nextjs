@@ -1,5 +1,5 @@
 import styles from '../styles/Home.module.css'
-import { getProducts } from '../db';
+import { getProducts } from '../fauna';
 
 export const config = {
   runtime: 'experimental-edge',
