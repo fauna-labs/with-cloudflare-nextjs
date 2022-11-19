@@ -19,6 +19,7 @@ export async function getServerSideProps() {
 
 
 export default function Home({ products, fauna_secret }) {
+  console.log(fauna_secret);
   return (
     <div className={styles.container}>
       <h1>Products</h1>

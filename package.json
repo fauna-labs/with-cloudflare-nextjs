@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "faunadb": "^4.7.1",
-    "next": "12.x",
+    "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
@@ -18,6 +18,6 @@
     "@cloudflare/next-on-pages": "^0.1.0",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.3",
-    "vercel": "^28.4.17"
+    "vercel": "^28.5.5"
   }
 }
