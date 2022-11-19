@@ -26,3 +26,10 @@ export const getProducts = async () => {
   const products = response.data.map((product) => ({ ...product.data, _id: product.ref.id }));
   return products;
 }
+
+export const getProductById = async (id) => {
+  const response = await client.query(
+    q.Get(q.Ref(q.Collection('Products'), id))
+  );
+  return response.data;
+}
