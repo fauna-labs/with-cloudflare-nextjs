@@ -29,9 +29,34 @@ export const getProducts = async () => {
 
 export const getProductById = async (id) => {
   const response = await client.query(
-    q.Get(q.Ref(q.Collection('Products'), id))
+    q.Let(
+      {
+        productRef: q.Get(q.Ref(q.Collection("Products"), id)),
+        reviewsRef: q.Map(
+         q.Paginate(
+           q.Match(
+            q.Index('reviews_by_product'),
+            q.Ref(q.Collection("Products"), id)
+           )
+         ),
+         q.Lambda(x => q.Get(x))
+        )
+      },
+      {
+        product: q.Var("productRef"),
+        reviews: q.Var("reviewsRef")
+      }
+    )
   );
-  return response.data;
+  const reviews = response.reviews.data.map((review) => ({ 
+    name: review.data.name, 
+    review: review.data.review, 
+    _id: review.ref.id 
+  }));
+  return {
+    ...response.product.data,
+    reviews,
+  };
 }
 
 export const createReview = async (name, review, productId) => {
@@ -46,3 +71,19 @@ export const createReview = async (name, review, productId) => {
   );
   return response.data;
 }
+
+
+// const productsWithReview = response.data.map((product) => {
+//   return { 
+//     ...product.product.data, 
+//     _id: product.product.ref.id, 
+//     reviews: product.reviews.data.map(
+//       (currentReview) => {
+//         const { name, review } = currentReview.data;
+//         return { name, review, _id: currentReview.ref.id }
+//       }
+//     ) 
+//   }
+// });
+// console.log('===>>>', productsWithReview);
+// return [];

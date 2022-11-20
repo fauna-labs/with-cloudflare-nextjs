@@ -19,6 +19,7 @@ export async function getServerSideProps(context) {
 
 
 export default function ProductPage({ product }) {
+  console.log(product);
   const [state, setState] = useState({
     name: '',
     review: '',
@@ -63,6 +64,14 @@ export default function ProductPage({ product }) {
         <br />
         <input type="submit" value="Submit" />
       </form>
+      {
+        product.reviews.map((review) => (
+          <div key={review._id}>
+            <h4>{review.name} :</h4>
+            <p>{review.review}</p>
+          </div>
+        ))
+      }
     </div>
   )
 }
