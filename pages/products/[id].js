@@ -35,9 +35,14 @@ export default function ProductPage({ product }) {
     try {
       const response = await fetch('/api/create-review', {
         method: 'POST',
-        body: JSON.stringify(state),
+        body: JSON.stringify({
+          ...state,
+          productId: product._id,
+        }),
       });
-      console.log(response);
+      if(response.status === 200) {
+        alert('Review created successfully');
+      }
     } catch (error) {
       console.log(error);
     }

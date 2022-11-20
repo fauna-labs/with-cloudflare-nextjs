@@ -24,7 +24,7 @@ export default async function (req) {
   }
 }
 
-async function readRequestBodyStream(body) {
+export async function readRequestBodyStream(body) {
   const reader = body.getReader();
   let result = new Uint8Array(0);
 

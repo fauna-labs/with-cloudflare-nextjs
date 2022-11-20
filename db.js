@@ -33,3 +33,16 @@ export const getProductById = async (id) => {
   );
   return response.data;
 }
+
+export const createReview = async (name, review, productId) => {
+  const response = await client.query(
+    q.Create(q.Collection('Reviews'), {
+      data: {
+        name,
+        review,
+        product: q.Ref(q.Collection('Products'), productId)
+      },
+    })
+  );
+  return response.data;
+}
